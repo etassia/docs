@@ -120,6 +120,14 @@ engine's version triple — the same document always draws the same bytes, so
 the tool can pin, diff, and republish its diagrams like any other build
 artifact.
 
+Two of the pieces in this guide already exist as code. The
+`Etassia::Dim` module in the [etassia](https://github.com/etassia/etassia)
+gem is the DIM 0.1 model on lutaml-model — build a `Dim::Document`, and
+`render` serializes it and hands it to the native engine. And the first
+emitter is real: `Lutaml::Xsd::DimExporter` in
+[lutaml-xsd](https://github.com/lutaml/lutaml-xsd) walks a parsed schema
+and produces the document this guide describes.
+
 ## The styling boundary
 
 The emitter carries no colors, fonts, or pixel choices. The semantic edge

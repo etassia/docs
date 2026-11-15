@@ -19,5 +19,6 @@ translate into a fallback call to the reference implementation.
 Model-derived families do not appear in this table, because they do not
 enter through text grammars: a schema or model tool emits a DIM document
 ([the emitter guide](../emitter-guide.md)), and the engine draws it through
-the same pipeline. The families with emitters under way are XML Schema,
-JSON Schema, UML (from Enterprise Architect XMI), and EXPRESS-G.
+the same pipeline. The first emitter has shipped — `Lutaml::Xsd::DimExporter`
+in lutaml-xsd emits the XML Schema family — and the families with emitters
+next are JSON Schema, UML (from Enterprise Architect XMI), and EXPRESS-G.
