@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Every JSON example and schema in the repository must parse, and the
+      # examples must validate against the schema they document.
+      - run: npm install --no-save ajv
+      - run: |
+          set -e
+          node -e "
+            const fs = require('fs');
+            const Ajv = require('ajv');
+            const ajv = new Ajv({ strict: false });
+            const schema = JSON.parse(fs.readFileSync('dim/dim-0.1.schema.json', 'utf8'));
+            const validate = ajv.compile(schema);
+            for (const f of fs.readdirSync('dim/examples')) {
+              const doc = JSON.parse(fs.readFileSync('dim/examples/' + f, 'utf8'));
+              if (!validate(doc)) { console.error(f, validate.errors); process.exit(1); }
+              console.log('ok:', f);
+            }
+          "
